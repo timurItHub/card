@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Форма для банковской карты</title>
+</head>
+<body>
+
+  <form>
+    <label for="card-type">Тип карты</label>
+    <input type="text" id="card-type" name="card-type"><br><br>
+
+    <label for="bank-name">Название банка</label>
+    <input type="text" id="bank-name" name="bank-name"><br><br>
+
+    <label for="card-holder-name">Имя владельца карты</label>
+    <input type="text" id="card-holder-name" name="card-holder-name"><br><br>
+
+    <label for="card-expiration-date">Дата карты</label>
+    <input type="text" id="card-expiration-date" name="card-expiration-date"><br><br>
+
+    <input type="submit" value="Отправить">
+  </form>
+
+  <img src="" id="card-image">
+
+  <h2>Список карт</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Тип карты</th>
+        <th>Название банка</th>
+        <th>Имя владельца карты</th>
+        <th>Дата карты</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    </tbody>
+  </table>
+
+  <script>
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      submitForm();
+    });
+
+    const cardTypeInput = document.querySelector('#card-type');
+    const bankNameInput = document.querySelector('#bank-name');
+    const cardHolderNameInput = document.querySelector('#card-holder-name');
+    const cardExpirationDateInput = document.querySelector('#card-expiration-date');
+    const cardImage = document.querySelector('#card-image');
+
+    cardTypeInput.addEventListener('input', updateCardImage);
+    bankNameInput.addEventListener('input', updateCardImage);
+    cardHolderNameInput.addEventListener('input', updateCardImage);
+    cardExpirationDateInput.addEventListener('input', updateCardImage);
+
+    function updateCardImage() {
+      const cardType = cardTypeInput.value;
+      const bankName = bankNameInput.value;
+      const cardHolderName = cardHolderNameInput.value;
+      const cardExpirationDate = cardExpirationDateInput.value;
+
+      cardImage.src = `http://via.placeholder.com/350x200?text=${cardType} ${bankName} ${cardHolderName} ${cardExpirationDate}`;
+    }
+
+    function submitForm() {
+      const cardType = document.querySelector('#card-type').value;
+      const bankName = document.querySelector('#bank-name').value;
+      const cardHolderName = document.querySelector('#card-holder-name').value;
+      const cardExpirationDate = document.querySelector('#card-expiration-date').value;
+
+      const table = document.querySelector('table');
+      const row = table.insertRow(-1);
+      const cell1 = row.insertCell(0);
+      const cell2 = row.insertCell(1);
+      const cell3 = row.insertCell(2);
+      const cell4 = row.insertCell(3);
+
+      cell1.innerHTML = cardType;
+      cell2.innerHTML = bankName;
+      cell3.innerHTML = cardHolderName;
+      cell4.innerHTML = cardExpirationDate;
+
+      resetForm();
+    }
+
+    function resetForm() {
+      const cardImage = document.querySelector('#card-image');
+      cardImage.src = '';
+
+      form.reset();
+    }
+  </script>
+
+</body>
+</html>
